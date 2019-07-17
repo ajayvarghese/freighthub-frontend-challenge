@@ -1,0 +1,14 @@
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  color: rgba(0, 0, 0, .67);
+  font-size: 13px;
+}
+
+.value {
+  font-size: 18px;
+  font-weight: 400;
+}

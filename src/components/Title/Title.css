@@ -1,0 +1,12 @@
+.wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.title {
+  background: var(--accent);
+  color: #fff;
+  padding: 13px 40px;
+}

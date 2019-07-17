@@ -1,0 +1,21 @@
+.wrapper {
+  padding-top: 10px;
+}
+
+.content {
+  
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.shipment_icon {
+  font-size: 42px;
+  opacity: .7;
+  margin-right: 15px;
+}

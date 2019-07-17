@@ -1,0 +1,83 @@
+.wrapper {
+  flex: 1;
+  overflow: auto;
+}
+
+th.cell {
+  position: relative;
+  cursor: pointer;
+}
+
+td.transport_cell {
+  padding: 0;
+}
+
+th.cell, td.cell {
+ padding: 10px 12px; 
+ min-width: 100px;
+}
+
+td.expanded_view {
+  background:#3f51b50a;
+  padding-bottom: 0;
+}
+
+.clicked_cell {
+  background: #3f51b517;
+}
+
+.mode_icon {
+  opacity: .7;
+  margin: 0 6px;
+  font-size: 22px;
+}
+
+.sort_ico {
+  position: absolute;
+  right: 8px;
+  display: inline-flex;
+  flex-direction: column;
+  opacity: .3;
+  top: 15px;
+  height: 12px;
+  justify-content: center;
+}
+
+.sort_ico:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-bottom: 5px solid black;
+  border-top: 0;
+  margin-bottom: 2px;
+}
+
+.sort_ico:after {
+  content: '';
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top: 5px solid black;
+  border-bottom: 0;
+}
+
+.sort_ico.asc:after {
+  display: none;
+}
+
+.sort_ico.desc:before {
+  display: none;
+}
+
+.sort_ico.asc, .sort_ico.desc {
+  opacity: 1;
+}
+
+.sort_ico.asc:before {
+  border-bottom: 5px solid var(--accent);
+}
+
+.sort_ico.desc:after {
+  border-top: 5px solid var(--accent);
+}

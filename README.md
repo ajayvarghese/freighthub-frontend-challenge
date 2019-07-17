@@ -12,7 +12,7 @@ Following are the commands to run the application.
 yarn or npm install i
 yarn start:client or npm start:client // starts client
 yarn start:server or npm start:server // starts server
-yarn start:server or npm start:build // generate build
+yarn start:build or npm start:build // generate build
 ```
 
 ## Business need

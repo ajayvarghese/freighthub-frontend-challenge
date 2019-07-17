@@ -202,8 +202,7 @@ class ShipmentList extends Component {
                 {  shipmentId === row.id && <TableRow>
                   <TableCell colSpan={9} className={styles.expanded_view}>
                     <Route
-                      exact
-                      path={`${url}/:id`}
+                      path={`/shipment/:id`}
                       component={Shipment}
                     />
                   </TableCell>

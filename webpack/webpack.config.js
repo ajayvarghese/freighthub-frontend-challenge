@@ -8,7 +8,7 @@ const config = {
     historyApiFallback: true,
     proxy: {
       '/rest': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3002',
         pathRewrite: {'^/rest' : ''}
       },
       '/mail': {

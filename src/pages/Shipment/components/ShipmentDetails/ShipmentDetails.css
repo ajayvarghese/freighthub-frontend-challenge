@@ -25,13 +25,12 @@
 }
 
 .origin, .destination {
-  background: #3f51b50f;
+  background: #3f51b51c;
   display: flex;
   border-radius: 3px;
   font-size: 14px;
   align-items: center;
   padding-right: 10px;
-  border: 1px solid #2096f347;
 }
 
 .origin_label,

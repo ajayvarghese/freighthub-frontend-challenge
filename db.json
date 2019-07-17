@@ -1,7 +1,7 @@
 {
   "shipments": [
     {
-      "name": "T-shirts from Shanghai to Hamburg",
+      "name": "T-shirts from Shanghai to Berlin",
       "cargo": [
         {
           "type": "Fabric",
@@ -16,7 +16,7 @@
       ],
       "mode": "sea",
       "type": "FCL",
-      "destination": "Saarbrücker Str. 38, 10405 Berlin",
+      "destination": "Aaarbrücker Str. 38, 10405 Berlin",
       "origin": "Shanghai Port",
       "services": [
         {
@@ -29,7 +29,6 @@
       "id": "S1000"
     },
     {
-      "id": "S1001",
       "name": "New spring collection",
       "cargo": [
         {
@@ -58,7 +57,8 @@
       ],
       "total": "3000",
       "status": "ACTIVE",
-      "userId": "U1002"
+      "userId": "U1002",
+      "id": "S1001"
     },
     {
       "id": "S1002",

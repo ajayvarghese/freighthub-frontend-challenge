@@ -2,23 +2,13 @@ import React, { Component, Fragment } from 'react';
 import classNames from 'classnames';
 import { request } from './../../utils/request';
 import Title from './../../components/Title';
+import Search from './../../components/Search';
 import styles from './Home.css';
 import ShipmentList from './components/ShipmentList';
+import icons from './../../constants/icons';
 
-export const TransportIcon = () => <span className={classNames(styles.transport_icon, "flaticon-fast-forward-media-control-button")}/>
-
-const Search = ({ searchKey, setSearchKey }) => (
-  <div className={styles.search}>
-    <span className={classNames(styles.search_key, "flaticon-search")}></span>
-    <input
-      type="text"
-      value={searchKey}
-      className={styles.search_input}
-      onChange={setSearchKey}
-      placeholder="Search"
-    />
-  </div>
-);
+export const TransportIcon = () =>
+  <span className={classNames(styles.transport_icon, icons.transport)}/>
 
 class Home extends Component {
   totalEntries = 20;
@@ -36,20 +26,37 @@ class Home extends Component {
     })
   }
 
-  componentDidMount(){
-    const { currentPage, totalEntries } = this.state;
-    request(`/rest/shipments?_page=${currentPage}&_limit=${this.totalEntries}`)
+  setCurrentPage = (pageNumber) => {
+    this.setState({
+      currentPage: pageNumber
+    })
+  }
+
+  fetchShipments = () => {
+    const { currentPage } = this.state;
+    request(`/rest/shipments?_page=${Number(currentPage + 1)}&_limit=${this.totalEntries}`)
       .then(r => {
-        console.log('Response', r);
-        this.setState({ shipments: r.response, totalCount: r.totalCount })
+        this.setState({
+          shipments: r.response,
+          totalCount: Number(r.totalCount)
+        })
       });
+  } 
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.currentPage !== this.state.currentPage){
+      this.fetchShipments();
+    }
+  }
+
+  componentDidMount(){
+    this.fetchShipments();
   };
 
   static getDerivedStateFromProps(props, state) {
     const { location: { pathname }  } = props;
     const urlSplit = pathname.split('/');
     if ( urlSplit[urlSplit.length - 1] !== state.shipmentId ) {
-      console.log('asd', urlSplit[urlSplit.length - 1]);
       return {
         shipmentId: urlSplit[urlSplit.length - 1]
       };
@@ -62,7 +69,10 @@ class Home extends Component {
       <div className={ styles.wrapper }>
         <Title>Shipment List</Title>
         <div className={classNames(styles.content, "layout-container")}>
-          <Search searchKey={this.state.searchKey} setSearchKey={this.setSearchKey} />
+          <Search
+            searchKey={this.state.searchKey}
+            setSearchKey={this.setSearchKey}
+          />
           { this.state.shipments && this.state.shipments.length > 0 &&
             <ShipmentList
               shipmentId={this.state.shipmentId}
@@ -70,7 +80,9 @@ class Home extends Component {
               shipments={this.state.shipments}
               currentPage={this.state.currentPage}
               totalEntries={this.totalEntries}
+              totalCount={this.state.totalCount}
               url={this.props.match.url}
+              setCurrentPage={this.setCurrentPage}
             />
           }
         </div>

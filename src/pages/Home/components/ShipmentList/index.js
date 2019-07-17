@@ -14,11 +14,7 @@ import Pill from './../../../../components/Pill';
 import ContentEditable from '../../../../components/ContentEditable';
 import { TransportIcon } from './../../index';
 import { request } from './../../../../utils/request';
-
-const iconMap = { 
-  air: "flaticon-air-transport",
-  sea: "flaticon-ocean-transportation"
-};
+import icons from './../../../../constants/icons';
 
 const SortIcon = ({ sortCondition, sortOrder }) => (
   <span className={classNames(
@@ -34,12 +30,23 @@ class ShipmentList extends Component {
     sortOrder: ''
   }
 
+  tableHeaders = [
+    { label: 'ID', key: 'id', sort: true },
+    { label: 'Name', key: 'name', sort: true },
+    { label: 'Mode', key: 'mode', sort: true },
+    { label: 'Status', key: 'status', sort: true },
+    { label: 'Origin', key: 'origin', sort: true },
+    { label: '', sort: false },
+    { label: 'Destination', key: 'destination', sort: true },
+  ]
+
   static propTypes = {
     shipments: PropTypes.instanceOf(Array),
     currentPage: PropTypes.number,
     totalEntries: PropTypes.number,
     searchKey: PropTypes.string,
     shipmentId: PropTypes.string,
+    totalCount: PropTypes.number,
   }
 
   static defaultProps = {
@@ -47,7 +54,8 @@ class ShipmentList extends Component {
     currentPage: 0,
     totalEntries: 10,
     searchKey: '',
-    shipmentId: null
+    shipmentId: null,
+    totalCount: 0
   }
 
   setSortedKey = (sortKey) => {
@@ -89,83 +97,35 @@ class ShipmentList extends Component {
       request(`/rest/shipments/${editedShipmentId}`, {
         method: "PUT",
         body: requestBody,
+      }).then(r => {
+        if(r.status === 200) {
+          alert('Name Changed Successfully');
+        }
       });
     }
   }
 
-
   render() {
-    const { currentPage, totalEntries, url, shipmentId } = this.props;
+    const { currentPage, totalEntries, url, shipmentId,
+      totalCount, setCurrentPage } = this.props;
     return (
       <div className={styles.wrapper}>
         <Table size="small">
           <TableHead>
             <TableRow>
+            {this.tableHeaders.map( ({ label, key, sort }, index) => (
               <TableCell
-                className={styles.cell}
-                onClick={() => this.setSortedKey('id')}
+                key={key + index}
+                className={sort ? styles.cell : ''}
+                onClick={sort ? () => this.setSortedKey(key) : (f) => f }
               >
-                ID
-                <SortIcon
-                  sortCondition={this.state.sortKey === 'id'}
+                { label }
+                { sort && <SortIcon
+                  sortCondition={this.state.sortKey === key}
                   sortOrder={this.state.sortOrder}
-                />
+                />}
               </TableCell>
-              <TableCell
-                className={styles.cell}
-                onClick={() => this.setSortedKey('name')}
-              >
-                Name
-                <SortIcon
-                  sortCondition={this.state.sortKey === 'name'}
-                  sortOrder={this.state.sortOrder}
-                />
-                <span/>
-              </TableCell>
-              <TableCell
-                className={styles.cell}
-                onClick={() =>  this.setSortedKey('mode')}
-              >
-                Mode
-                <SortIcon
-                  sortCondition={this.state.sortKey === 'mode'}
-                  sortOrder={this.state.sortOrder}
-                />
-              </TableCell>
-              <TableCell
-                className={styles.cell}
-                onClick={() =>  this.setSortedKey('status')}
-              >
-                Status
-                <SortIcon
-                  sortCondition={this.state.sortKey === 'status'}
-                  sortOrder={this.state.sortOrder}
-                />
-                <span />
-              </TableCell>
-              <TableCell
-                className={styles.cell}
-                onClick={() =>  this.setSortedKey('origin')}
-              >
-                Origin
-                <SortIcon
-                  sortCondition={this.state.sortKey === 'origin'}
-                  sortOrder={this.state.sortOrder}
-                />
-                <span />
-              </TableCell>
-              <TableCell></TableCell>
-              <TableCell
-                className={styles.cell}
-                onClick={() => this.setState({ sortKey: 'destination' })}
-              >
-                Destination
-                <SortIcon
-                  sortCondition={this.state.sortKey === 'destination'}
-                  sortOrder={this.state.sortOrder}
-                />
-                <span />
-              </TableCell>
+            ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -178,7 +138,7 @@ class ShipmentList extends Component {
                   })}
                 >
                   <TableCell className={styles.cell}>
-                    <Link to={`/shipment/${row.id}`}>{row.id}</Link>
+                    <Link to={`/${row.id}`}>{row.id}</Link>
                   </TableCell>
                   <TableCell className={styles.cell}>
                     <ContentEditable
@@ -188,7 +148,7 @@ class ShipmentList extends Component {
                   </TableCell>
                   <TableCell className={styles.cell}>
                     <span className={styles.mode}>
-                      <span className={classNames(styles.mode_icon, iconMap[row.mode])}/>
+                      <span className={classNames(styles.mode_icon, icons[row.mode])}/>
                       {row.mode}
                     </span>
                   </TableCell>
@@ -202,7 +162,7 @@ class ShipmentList extends Component {
                 {  shipmentId === row.id && <TableRow>
                   <TableCell colSpan={9} className={styles.expanded_view}>
                     <Route
-                      path={`/shipment/:id`}
+                      path={`/:id`}
                       component={Shipment}
                     />
                   </TableCell>
@@ -212,8 +172,12 @@ class ShipmentList extends Component {
             <TablePagination
               page={currentPage}
               rowsPerPage={totalEntries}
-              count={2}
-              onChangePage={f => console.log(f)}
+              count={totalCount}
+              rowsPerPageOptions={[10]}
+              onChangePage={(f, pageNumber) => {
+                console.log(f, pageNumber);
+                setCurrentPage(pageNumber);
+              }}
             />
           </TableBody>
         </Table>

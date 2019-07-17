@@ -15,31 +15,3 @@
   opacity: .7;
   margin: 0 6px;
 }
-
-/* SEARCH */
-
-.search {
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.search_key {
-  position: absolute;
-  top: 2px;
-  font-size: 15px;
-}
-
-.search_input {
-  padding: 5px 8px;
-  font-size: 14px;
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-  min-width: 240px;
-  padding-left: 23px;
-}
-
-@media all and (max-width: 812px) {
-  .search {
-    padding: 0 20px;;
-  }
-}

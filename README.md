@@ -10,9 +10,9 @@ Following are the commands to run the application.
 
 ```
 yarn or npm install i
-yarn start:client or npm start:client // starts client
-yarn start:server or npm start:server // starts server
-yarn start:build or npm start:build // generate build
+yarn or npm run start:client // starts client
+yarn or npm run start:server // starts server
+yarn or npm run start:build // generate build
 ```
 
 ## Business need

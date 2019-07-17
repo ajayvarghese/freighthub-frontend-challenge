@@ -4,6 +4,17 @@ Welcome to the FreightHub frontend coding challenge! Please read the following i
 
 **Your goal is to set up an application which enables the user to view and manage shipments.**
 
+## Instructions to run
+
+Following are the commands to run the application. 
+
+```
+yarn or npm install i
+yarn start:client or npm start:client // starts client
+yarn start:server or npm start:server // starts server
+yarn start:server or npm start:build // generate build
+```
+
 ## Business need
 
 The main goal is for the user to check the shipments at a glance. This allows users to take faster decisions and plan ahead of time.

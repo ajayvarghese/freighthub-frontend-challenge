@@ -1,0 +1,21 @@
+.wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: var(--accent);
+}
+
+.link {
+  color: #fff;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.title {
+  background: var(--accent);
+  color: #fff;
+  padding: 13px 0;
+}

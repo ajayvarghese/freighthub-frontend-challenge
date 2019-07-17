@@ -1,0 +1,17 @@
+
+.wrapper {
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+}
+
+.content {
+  padding-top: 90px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 90px);
+}
+
+.transport_icon {
+  opacity: .7;
+  margin: 0 6px;
+}
